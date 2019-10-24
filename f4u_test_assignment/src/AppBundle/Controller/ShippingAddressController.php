@@ -20,7 +20,7 @@ class ShippingAddressController
         $dto = ShippingAddressDTO::fromArray($request->request->all());
         echo __FILE__.' '.__LINE__.'<pre>';print_r($dto).'</pre>';die;
 
-        $response = 'Some response'; // Here we will add row in DB
+        $response = $this->shippingAddressService->add($dto, $clientId);
 
         return new JsonResponse([
             "response" => $response
