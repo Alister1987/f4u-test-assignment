@@ -67,9 +67,9 @@ class ShippingAddressController
         int $clientId,
         ShippingAddressService $shippingAddressService
     ): JsonResponse {
-        $shippingAddressService->getAll($clientId);
+        $response = $shippingAddressService->getAll($clientId);
 
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+        return new JsonResponse($response);
     }
 
 }

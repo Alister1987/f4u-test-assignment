@@ -49,7 +49,7 @@ class ShippingAddressRepository extends EntityRepository
             ->where('sa.clientId = :client_id')
             ->setParameter('client_id', $clientId)
             ->getQuery()
-            ->getResult()
+            ->getArrayResult()
             ;
     }
     public function countByClientId(int $clientId)

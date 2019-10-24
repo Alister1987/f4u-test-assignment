@@ -75,7 +75,7 @@ class ShippingAddressService
     /**
      * @throws ShippingAddressNotFoundException
      */
-    public function getAll(int $clientId): void
+    public function getAll(int $clientId)
     {
         try {
             $allAddresses = $this->shippingAddressRepository->findByClientId($clientId);
