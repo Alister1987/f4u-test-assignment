@@ -6,7 +6,6 @@ namespace AppBundle\Service;
 use AppBundle\DTO\ShippingAddressDTO;
 use AppBundle\Exception\ShippingAddressNotUpdatedException;
 use AppBundle\Repository\ShippingAddressRepository;
-use AppBundle\Repository\ClientRepository;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Exception\ShippingAddressNotCreatedException;
 use AppBundle\Exception\ShippingAddressNotFoundException;
@@ -14,20 +13,13 @@ use AppBundle\Exception\ShippingAddressNotFoundException;
 class ShippingAddressService
 {
     /**
-     * @var ClientRepository
-     */
-    private $clientRepository;
-
-    /**
      * @var ShippingAddressRepository
      */
     private $shippingAddressRepository;
 
     public function __construct(
-        ClientRepository $clientRepository,
         ShippingAddressRepository $shippingAddressRepository
     ) {
-        $this->clientRepository = $clientRepository;
         $this->shippingAddressRepository = $shippingAddressRepository;
     }
 
