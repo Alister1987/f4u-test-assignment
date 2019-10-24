@@ -1,37 +1,97 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Entity;
+namespace AppBundle\Entity;
 
-use DateTime;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Client
+ *
+ * @ORM\Table(name="client")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ClientRepository")
+ */
 class Client
 {
     /**
-     * @var FirstName
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $first_name;
+    private $id;
 
     /**
-     * @var LastName
+     * @var string
+     *
+     * @ORM\Column(name="field_name", type="string", length=255)
      */
-    protected $last_name;
+    private $fieldName;
 
     /**
-     * @var DateTime
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255)
      */
-    protected $created_at;
+    private $lastName;
 
 
     /**
-     * Client constructor.
-     * @param FirstName $firstname
-     * @param LastName $lastname
+     * Get id
+     *
+     * @return int
      */
-    public function __construct($first_name, $last_name)
+    public function getId()
     {
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
+        return $this->id;
     }
 
+    /**
+     * Set fieldName
+     *
+     * @param string $fieldName
+     *
+     * @return Client
+     */
+    public function setFieldName($fieldName)
+    {
+        $this->fieldName = $fieldName;
+
+        return $this;
+    }
+
+    /**
+     * Get fieldName
+     *
+     * @return string
+     */
+    public function getFieldName()
+    {
+        return $this->fieldName;
+    }
+
+    /**
+     * Set lastName
+     *
+     * @param string $lastName
+     *
+     * @return Client
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
 }
+

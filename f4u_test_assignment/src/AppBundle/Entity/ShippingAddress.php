@@ -1,45 +1,221 @@
 <?php
-declare(strict_types=1);
 
-namespace App\Entity;
+namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints\Country;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * ShippingAddress
+ *
+ * @ORM\Table(name="shipping_address")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ShippingAddressRepository")
+ */
 class ShippingAddress
 {
     /**
-     * @var Country
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $country;
+    private $id;
 
     /**
-     * @var City
+     * @var string
+     *
+     * @ORM\Column(name="country", type="string", length=255)
      */
-    protected $city;
+    private $country;
 
     /**
-     * @var Zipcode
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255)
      */
-    protected $zipcode;
+    private $city;
 
     /**
-     * @var Street
+     * @var string
+     *
+     * @ORM\Column(name="zipcode", type="string", length=255)
      */
-    protected $street;
+    private $zipcode;
 
     /**
-     * ShippingAddress constructor.
-     * @param Country
-     * @param City
-     * @param Zipcode
-     * @param Street
+     * @var string
+     *
+     * @ORM\Column(name="street", type="string", length=255)
      */
-    public function __construct($country, $city, $zipcode, $street)
+    private $street;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="client_id", type="integer")
+     */
+    private $clientId;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_default", type="boolean")
+     */
+    private $isDefault;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
     {
-        $this->country = $country;
-        $this->city = $city;
-        $this->zipcode = $zipcode;
-        $this->street = $street;
+        return $this->id;
     }
 
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return ShippingAddress
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     *
+     * @return ShippingAddress
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set zipcode
+     *
+     * @param string $zipcode
+     *
+     * @return ShippingAddress
+     */
+    public function setZipcode($zipcode)
+    {
+        $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    /**
+     * Get zipcode
+     *
+     * @return string
+     */
+    public function getZipcode()
+    {
+        return $this->zipcode;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return ShippingAddress
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set clientId
+     *
+     * @param integer $clientId
+     *
+     * @return ShippingAddress
+     */
+    public function setClientId($clientId)
+    {
+        $this->clientId = $clientId;
+
+        return $this;
+    }
+
+    /**
+     * Get clientId
+     *
+     * @return int
+     */
+    public function getClientId()
+    {
+        return $this->clientId;
+    }
+
+    /**
+     * Set isDefault
+     *
+     * @param boolean $isDefault
+     *
+     * @return ShippingAddress
+     */
+    public function setIsDefault($isDefault)
+    {
+        $this->isDefault = $isDefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isDefault
+     *
+     * @return bool
+     */
+    public function getIsDefault()
+    {
+        return $this->isDefault;
+    }
 }
+
