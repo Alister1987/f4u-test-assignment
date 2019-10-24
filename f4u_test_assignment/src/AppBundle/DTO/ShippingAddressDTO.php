@@ -32,13 +32,13 @@ class ShippingAddressDTO
 
     public static function fromArray(array $array): ShippingAddressDTO
     {
-        $self = new self();
+        $dto = new self();
 
-        $self->country = $array['country'];
-        $self->city = $array['city'];
-        $self->zipcode = $array['zipcode'];
-        $self->street = $array['street'];
+        $dto->country = $array['country'];
+        $dto->city = $array['city'];
+        $dto->zipcode = $array['zipcode'];
+        $dto->street = $array['street'];
 
-        return $self;
+        return $dto;
     }
 }

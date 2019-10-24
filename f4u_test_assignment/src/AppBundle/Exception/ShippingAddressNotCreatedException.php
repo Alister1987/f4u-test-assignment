@@ -5,10 +5,10 @@ namespace AppBundle\Exception;
 
 use Throwable;
 
-class UnableToCreateShippingAddressException extends \Exception
+class ShippingAddressNotCreatedException extends \Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
-        parent::__construct('Unable to create shipping address', $code, $previous);
+        parent::__construct('Shipping Address Not Created', $code, $previous);
     }
 }

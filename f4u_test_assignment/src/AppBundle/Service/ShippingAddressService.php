@@ -7,7 +7,7 @@ use AppBundle\DTO\ShippingAddressDTO;
 use AppBundle\Repository\ShippingAddressRepository;
 use AppBundle\Repository\ClientRepository;
 use AppBundle\Entity\ShippingAddress;
-use AppBundle\Exception\UnableToCreateShippingAddressException;
+use AppBundle\Exception\ShippingAddressNotCreatedException;
 
 class ShippingAddressService
 {
@@ -30,15 +30,14 @@ class ShippingAddressService
     }
 
     /**
-     * @throws UnableToCreateShippingAddressException
+     * @throws ShippingAddressNotCreatedException
      */
     public function add(ShippingAddressDTO $dto, int $clientId): void
     {
         try {
             $this->shippingAddressRepository->addAddress($dto);
         } catch (\Exception $e) {
-            dump($e);die;
-            throw new UnableToCreateShippingAddressException();
+            throw new ShippingAddressNotCreatedException();
         }
     }
 
@@ -52,7 +51,6 @@ class ShippingAddressService
     private function getClient(int $clientId)
     {
         $client = $this->clientRepository->findById($clientId);
-        dump($client);die;
 
         if (!$client) {
             throw new ClientNotFoundException;
