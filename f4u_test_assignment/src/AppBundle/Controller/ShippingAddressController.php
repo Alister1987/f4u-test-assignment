@@ -13,24 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 class ShippingAddressController
 {
     /**
-     * @var ShippingAddressService
-     */
-    private $shippingAddressService;
-
-    /**
-     * @param ShippingAddressService $shippingAddressService
-     */
-    public function __construct()
-    {
-//        $this->shippingAddressService = $shippingAddressService;
-    }
-    /**
-     * @Route("/api/shipping_address/{clientId}/add", name="add_shipping_address", requirements={"clientId"="\d+"})
+     * @Route("/api/shipping_address/{clientId}/create", name="create_shipping_address", requirements={"clientId"="\d+"})
      * @throws \Exception
      */
-    public function add(
+    public function create(
         Request $request,
-        string $clientId,
+        int $clientId,
         ShippingAddressService $shippingAddressService
     ): JsonResponse {
         $dto = ShippingAddressDTO::fromArray($request->request->all());
@@ -40,4 +28,21 @@ class ShippingAddressController
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * @Route("/api/shipping_address/{addressId}/update", name="update_shipping_address", requirements={"clientId"="\d+"})
+     * @throws \Exception
+     */
+    public function update(
+        Request $request,
+        int $addressId,
+        ShippingAddressService $shippingAddressService
+    ): JsonResponse {
+        $dto = ShippingAddressDTO::fromArray($request->request->all());
+
+        $shippingAddressService->update($dto, $addressId);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
 }

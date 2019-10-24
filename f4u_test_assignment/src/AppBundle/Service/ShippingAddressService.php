@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AppBundle\Service;
 
 use AppBundle\DTO\ShippingAddressDTO;
+use AppBundle\Exception\ShippingAddressNotUpdatedException;
 use AppBundle\Repository\ShippingAddressRepository;
 use AppBundle\Repository\ClientRepository;
 use AppBundle\Entity\ShippingAddress;
@@ -42,20 +43,43 @@ class ShippingAddressService
     }
 
     /**
-     * @param integer $clientId
-     * @return mixed
-     * @throws ClientNotFoundException
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Exception
+     * @throws ShippingAddressNotCreatedException
      */
-    private function getClient(int $clientId)
+    public function update(ShippingAddressDTO $dto, int $addressId): void
     {
-        $client = $this->clientRepository->findById($clientId);
-
-        if (!$client) {
-            throw new ClientNotFoundException;
+        try {
+            $shippingAddress = $this->getAddress($addressId);
+            $this->shippingAddressRepository->updateAddress($dto, $shippingAddress);
+        } catch (\Exception $e) {
+            throw new ShippingAddressNotUpdatedException();
+        }
+    }
+    public function getAddress(int $addressId): ShippingAddress
+    {
+        try {
+            $shippingAddress = $this->shippingAddressRepository->findById($addressId);
+        } catch (\Exception $e) {
+            throw new ShippingAddressNotUpdatedException();
         }
 
-        return $client;
+        return $shippingAddress;
     }
+
+//    /**
+//     * @param integer $clientId
+//     * @return mixed
+//     * @throws ClientNotFoundException
+//     * @throws \Doctrine\ORM\NonUniqueResultException
+//     * @throws \Exception
+//     */
+//    private function getClient(int $clientId)
+//    {
+//        $client = $this->clientRepository->findById($clientId);
+//
+//        if (!$client) {
+//            throw new ClientNotFoundException;
+//        }
+//
+//        return $client;
+//    }
 }

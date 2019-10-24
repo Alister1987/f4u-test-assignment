@@ -11,11 +11,31 @@ class ShippingAddressRepository extends EntityRepository
 {
     public function addAddress(ShippingAddressDTO $dto)
     {
-        $shippingAddress = new ShippingAddress();
-
         $shippingAddress = ShippingAddress::createFromDto($dto);
 
         $this->getEntityManager()->persist($shippingAddress);
-        $this->getEntityManager()->flush($shippingAddress);
+        $this->getEntityManager()->flush();
+    }
+    public function updateAddress(ShippingAddressDTO $dto, ShippingAddress $shippingAddress)
+    {
+        $shippingAddressDto = ShippingAddress::createFromDto($dto);
+
+        /** @var ShippingAddress $shippingAddress */
+        $shippingAddress->setCountry($shippingAddressDto->getCountry());
+        $shippingAddress->setCity($shippingAddressDto->getCity());
+        $shippingAddress->setZipcode($shippingAddressDto->getZipcode());
+        $shippingAddress->setStreet($shippingAddressDto->getStreet());
+
+        $this->getEntityManager()->persist($shippingAddress);
+        $this->getEntityManager()->flush();
+    }
+    public function findById(int $shippingAddressId)
+    {
+        return $this->createQueryBuilder('sa')
+            ->where('sa.id = :shippingAddressId')
+            ->setParameter('shippingAddressId', $shippingAddressId)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 }
