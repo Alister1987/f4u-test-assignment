@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace AppBundle\Exception;
 
-class ClientNotFoundException extends \Exception
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+class ClientNotFoundException extends NotFoundHttpException
 {
     public function __construct()
     {

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\DTO\ShippingAddressDTO;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,7 +62,7 @@ class ShippingAddress
      *
      * @ORM\Column(name="is_default", type="boolean")
      */
-    private $isDefault;
+    private $isDefault = 0;
 
 
     /**
@@ -74,6 +75,22 @@ class ShippingAddress
         return $this->id;
     }
 
+    public static function createFromDto(ShippingAddressDTO $dto): ShippingAddress
+    {
+        $shippingAddress = new static();
+        foreach (get_object_vars($dto) as $property => $value) {
+            $setter = 'set'.ucfirst($property);
+
+            if (!method_exists($shippingAddress, $setter)) {
+                continue;
+            }
+
+            $shippingAddress->{$setter}($value);
+        }
+
+        return $shippingAddress;
+    }
+
     /**
      * Set country
      *
@@ -81,7 +98,7 @@ class ShippingAddress
      *
      * @return ShippingAddress
      */
-    public function setCountry($country)
+    public function setCountry(string $country)
     {
         $this->country = $country;
 

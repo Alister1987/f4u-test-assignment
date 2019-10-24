@@ -35,61 +35,31 @@ class Client
      */
     private $lastName;
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set fieldName
-     *
-     * @param string $fieldName
-     *
-     * @return Client
-     */
-    public function setFieldName($fieldName)
+    public function setFieldName(string $fieldName): Client
     {
         $this->fieldName = $fieldName;
 
         return $this;
     }
 
-    /**
-     * Get fieldName
-     *
-     * @return string
-     */
-    public function getFieldName()
+    public function getFieldName(): string
     {
         return $this->fieldName;
     }
 
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     *
-     * @return Client
-     */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName): Client
     {
         $this->lastName = $lastName;
 
         return $this;
     }
 
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }

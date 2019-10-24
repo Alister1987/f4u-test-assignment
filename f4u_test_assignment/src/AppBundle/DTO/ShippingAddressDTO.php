@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace AppBundle\DTO;
 
-class ShippingAddress
+class ShippingAddressDTO
 {
     /**
      * @var string
@@ -26,10 +26,11 @@ class ShippingAddress
     public $street;
 
     /**
-     * @param $array
-     * @return ShippingAddress
+     * @var int
      */
-    public static function fromArray($array)
+    public $clientId;
+
+    public static function fromArray(array $array): ShippingAddressDTO
     {
         $self = new self();
 
