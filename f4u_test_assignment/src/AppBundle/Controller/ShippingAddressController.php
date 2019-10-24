@@ -59,4 +59,17 @@ class ShippingAddressController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @Route("/api/shipping_address/{clientId}/get_all", name="get_all_shipping_address", requirements={"clientId"="\d+"})
+     * @throws \Exception
+     */
+    public function getAll(
+        int $clientId,
+        ShippingAddressService $shippingAddressService
+    ): JsonResponse {
+        $shippingAddressService->getAll($clientId);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
 }
