@@ -2,6 +2,10 @@
 
 namespace AppBundle\Repository;
 
+
+//use AppBundle\Entity\Client;
+//use Symfony\Bridge\Doctrine\RegistryInterface;
+
 /**
  * ClientRepository
  *

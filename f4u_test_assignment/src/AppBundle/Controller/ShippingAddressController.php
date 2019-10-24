@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 //use App\Service\ShippingAddressService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\DTO\ShippingAddress;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,24 +19,20 @@ class ShippingAddressController
     /**
      * @param ShippingAddressService $shippingAddressService
      */
-//    public function __construct(ShippingAddressService $shippingAddressService)
-//    {
+    public function __construct()
+    {
 //        $this->shippingAddressService = $shippingAddressService;
-//    }
+    }
     /**
      * @Route("/api/shipping_address/{clientId}/add", name="add_shipping_address", requirements={"clientId"="\d+"})
-     * @param Request $request
-     * @param string $clientId
-     * @return JsonResponse
      * @throws \Exception
      */
-    public function add(Request $request, string $clientId)
+    public function add(Request $request, string $clientId, ShippingAddressService $shippingAddressService): JsonResponse
     {
         $dto = ShippingAddress::fromArray($request->request->all());
-        echo __FILE__.' '.__LINE__.'<pre>';print_r($dto).'</pre>';die;
 
-        $response = 'ad';
-//        $response = $this->shippingAddressService->add($dto, $clientId);
+        $response = $shippingAddressService->add($dto, $clientId);
+        echo __FILE__.' '.__LINE__.'<pre>';print_r($dto).'</pre>';die;
 
         return new JsonResponse([
             "response" => $response
