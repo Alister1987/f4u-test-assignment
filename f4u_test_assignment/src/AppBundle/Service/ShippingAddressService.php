@@ -9,6 +9,7 @@ use AppBundle\Repository\ShippingAddressRepository;
 use AppBundle\Repository\ClientRepository;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Exception\ShippingAddressNotCreatedException;
+use AppBundle\Exception\ShippingAddressNotFoundException;
 
 class ShippingAddressService
 {
@@ -33,7 +34,7 @@ class ShippingAddressService
     /**
      * @throws ShippingAddressNotCreatedException
      */
-    public function add(ShippingAddressDTO $dto, int $clientId): void
+    public function create(ShippingAddressDTO $dto, int $clientId): void
     {
         try {
             $this->shippingAddressRepository->addAddress($dto);
@@ -54,12 +55,32 @@ class ShippingAddressService
             throw new ShippingAddressNotUpdatedException();
         }
     }
+
+    /**
+     * @throws ShippingAddressNotDeletedException
+     */
+    public function delete(int $clientId, int $addressId): void
+    {
+        try {
+            $countAddresses = $this->shippingAddressRepository->countByClientId($clientId);
+            if ($countAddresses > 1) {
+                $shippingAddress = $this->getAddress($addressId);
+                $this->shippingAddressRepository->delete($shippingAddress);
+            }
+        } catch (\Exception $e) {
+            throw new ShippingAddressNotDeletedException();
+        }
+    }
+
+    /**
+     * @throws ShippingAddressNotFoundException
+     */
     public function getAddress(int $addressId): ShippingAddress
     {
         try {
             $shippingAddress = $this->shippingAddressRepository->findById($addressId);
         } catch (\Exception $e) {
-            throw new ShippingAddressNotUpdatedException();
+            throw new ShippingAddressNotFoundException();
         }
 
         return $shippingAddress;

@@ -29,6 +29,11 @@ class ShippingAddressRepository extends EntityRepository
         $this->getEntityManager()->persist($shippingAddress);
         $this->getEntityManager()->flush();
     }
+    public function delete(ShippingAddress $shippingAddress)
+    {
+        $this->getEntityManager()->remove($shippingAddress);
+        $this->getEntityManager()->flush();
+    }
     public function findById(int $shippingAddressId)
     {
         return $this->createQueryBuilder('sa')
@@ -36,6 +41,25 @@ class ShippingAddressRepository extends EntityRepository
             ->setParameter('shippingAddressId', $shippingAddressId)
             ->getQuery()
             ->getOneOrNullResult()
+            ;
+    }
+    public function findByClientId(int $clientId)
+    {
+        return $this->createQueryBuilder('sa')
+            ->where('sa.clientId = :client_id')
+            ->setParameter('client_id', $clientId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function countByClientId(int $clientId)
+    {
+        return $this->createQueryBuilder('sa')
+            ->select('count(sa.id)')
+            ->where('sa.clientId = :client_id')
+            ->setParameter('client_id', $clientId)
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 }

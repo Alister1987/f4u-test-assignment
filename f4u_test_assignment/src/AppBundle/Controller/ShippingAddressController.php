@@ -24,13 +24,13 @@ class ShippingAddressController
         $dto = ShippingAddressDTO::fromArray($request->request->all());
         $dto->clientId = $clientId;
 
-        $shippingAddressService->add($dto, $clientId);
+        $shippingAddressService->create($dto, $clientId);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
-     * @Route("/api/shipping_address/{addressId}/update", name="update_shipping_address", requirements={"clientId"="\d+"})
+     * @Route("/api/shipping_address/{addressId}/update", name="update_shipping_address", requirements={"addressId"="\d+"})
      * @throws \Exception
      */
     public function update(
@@ -41,6 +41,20 @@ class ShippingAddressController
         $dto = ShippingAddressDTO::fromArray($request->request->all());
 
         $shippingAddressService->update($dto, $addressId);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @Route("/api/shipping_address/{clientId}/{addressId}/delete", name="delete_shipping_address", requirements={"clientId"="\d+", "addressId"="\d+"})
+     * @throws \Exception
+     */
+    public function delete(
+        int $clientId,
+        int $addressId,
+        ShippingAddressService $shippingAddressService
+    ): JsonResponse {
+        $shippingAddressService->delete($clientId, $addressId);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
