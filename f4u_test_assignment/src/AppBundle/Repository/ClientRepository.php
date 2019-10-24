@@ -3,11 +3,17 @@ declare(strict_types=1);
 
 namespace AppBundle\Repository;
 
-
-//use AppBundle\Entity\Client;
-//use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\EntityRepository;
 
 class ClientRepository extends EntityRepository
 {
+    public function findById(int $clientId)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.id = :clientId')
+            ->setParameter('clientId', $clientId)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 }

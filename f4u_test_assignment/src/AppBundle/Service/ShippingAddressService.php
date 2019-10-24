@@ -99,22 +99,4 @@ class ShippingAddressService
 
         return $shippingAddress;
     }
-
-//    /**
-//     * @param integer $clientId
-//     * @return mixed
-//     * @throws ClientNotFoundException
-//     * @throws \Doctrine\ORM\NonUniqueResultException
-//     * @throws \Exception
-//     */
-//    private function getClient(int $clientId)
-//    {
-//        $client = $this->clientRepository->findById($clientId);
-//
-//        if (!$client) {
-//            throw new ClientNotFoundException;
-//        }
-//
-//        return $client;
-//    }
 }
