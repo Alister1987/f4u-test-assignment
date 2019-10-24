@@ -24,9 +24,9 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="field_name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $fieldName;
+    private $firstName;
 
     /**
      * @var string
@@ -40,16 +40,16 @@ class Client
         return $this->id;
     }
 
-    public function setFieldName(string $fieldName): Client
+    public function setFirstName(string $firstName): Client
     {
-        $this->fieldName = $fieldName;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getFieldName(): string
+    public function getFirstName(): string
     {
-        return $this->fieldName;
+        return $this->firstName;
     }
 
     public function setLastName(string $lastName): Client
