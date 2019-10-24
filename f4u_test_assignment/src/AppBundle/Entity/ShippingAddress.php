@@ -75,22 +75,6 @@ class ShippingAddress
         return $this->id;
     }
 
-    public static function createFromDto(ShippingAddressDTO $dto): ShippingAddress
-    {
-        $shippingAddress = new static();
-        foreach (get_object_vars($dto) as $property => $value) {
-            $setter = 'set'.ucfirst($property);
-
-            if (!method_exists($shippingAddress, $setter)) {
-                continue;
-            }
-
-            $shippingAddress->{$setter}($value);
-        }
-
-        return $shippingAddress;
-    }
-
     /**
      * Set country
      *
@@ -233,6 +217,21 @@ class ShippingAddress
     public function getIsDefault()
     {
         return $this->isDefault;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function __set($name, $value)
+    {
+        $setter = 'set'.ucfirst($name);
+
+        if (!method_exists($this, $setter)) {
+            throw new \LogicException(printf('Method %s not exist', $setter));
+        }
+
+        $this->{$setter}($value);
     }
 }
 

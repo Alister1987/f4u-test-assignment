@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace AppBundle\Service;
 
 use AppBundle\DTO\ShippingAddressDTO;
+use AppBundle\Exception\ShippingAddressNotDeletedException;
 use AppBundle\Exception\ShippingAddressNotUpdatedException;
 use AppBundle\Repository\ShippingAddressRepository;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Exception\ShippingAddressNotCreatedException;
 use AppBundle\Exception\ShippingAddressNotFoundException;
+use Doctrine\ORM\EntityManagerInterface;
 
 class ShippingAddressService
 {
@@ -17,48 +19,88 @@ class ShippingAddressService
      */
     private $shippingAddressRepository;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    /**
+     * ShippingAddressService constructor.
+     * @param ShippingAddressRepository $shippingAddressRepository
+     * @param EntityManagerInterface $entityManager
+     */
     public function __construct(
-        ShippingAddressRepository $shippingAddressRepository
+        ShippingAddressRepository $shippingAddressRepository,
+        EntityManagerInterface $entityManager
     ) {
         $this->shippingAddressRepository = $shippingAddressRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
      * @throws ShippingAddressNotCreatedException
      */
-    public function create(ShippingAddressDTO $dto, int $clientId): void
+    public function create(ShippingAddressDTO $dto): ShippingAddress
     {
         try {
-            $this->shippingAddressRepository->addAddress($dto);
+            $shippingAddress = new ShippingAddress();
+
+            foreach (get_object_vars($dto) as $property => $value) {
+                $shippingAddress->{$property} = $value;
+            }
+
+            $countAddresses = $this->shippingAddressRepository->countByClientId($dto->clientId);
+
+            if ($countAddresses === 0) {
+                $shippingAddress->setIsDefault(true);
+            }
+
+            $this->entityManager->persist($shippingAddress);
+            $this->entityManager->flush();
+            $this->entityManager->refresh($shippingAddress);
         } catch (\Exception $e) {
             throw new ShippingAddressNotCreatedException();
         }
+
+        return $shippingAddress;
     }
 
     /**
-     * @throws ShippingAddressNotCreatedException
+     * @param ShippingAddressDTO $dto
+     * @param int $addressId
+     * @throws ShippingAddressNotFoundException
      */
     public function update(ShippingAddressDTO $dto, int $addressId): void
     {
-        try {
-            $shippingAddress = $this->getAddress($addressId);
-            $this->shippingAddressRepository->updateAddress($dto, $shippingAddress);
-        } catch (\Exception $e) {
-            throw new ShippingAddressNotUpdatedException();
-        }
+        $shippingAddress = $this->getAddress($addressId);
+
+        $shippingAddress->setCountry($shippingAddressDto->getCountry());
+        $shippingAddress->setCity($shippingAddressDto->getCity());
+        $shippingAddress->setZipcode($shippingAddressDto->getZipcode());
+        $shippingAddress->setStreet($shippingAddressDto->getStreet());
+
+        $this->getEntityManager()->persist($shippingAddress);
+        $this->getEntityManager()->flush();
+
+        return; $shippingAddress;
     }
 
     /**
+     * @param int $addressId
      * @throws ShippingAddressNotDeletedException
+     * @throws ShippingAddressNotFoundException
      */
-    public function delete(int $clientId, int $addressId): void
+    public function delete(int $addressId): void
     {
+        $shippingAddress = $this->getAddress($addressId);
+
+        if ($shippingAddress->getIsDefault()) {
+            throw new ShippingAddressNotDeletedException('Could not delete default address');
+        }
+
         try {
-            $countAddresses = $this->shippingAddressRepository->countByClientId($clientId);
-            if ($countAddresses > 1) {
-                $shippingAddress = $this->getAddress($addressId);
-                $this->shippingAddressRepository->delete($shippingAddress);
-            }
+            $this->entityManager->remove($shippingAddress);
+            $this->entityManager->flush();
         } catch (\Exception $e) {
             throw new ShippingAddressNotDeletedException();
         }
@@ -79,13 +121,15 @@ class ShippingAddressService
     }
 
     /**
+     * @param int $addressId
+     * @return ShippingAddress
      * @throws ShippingAddressNotFoundException
      */
     public function getAddress(int $addressId): ShippingAddress
     {
-        try {
-            $shippingAddress = $this->shippingAddressRepository->findById($addressId);
-        } catch (\Exception $e) {
+        $shippingAddress = $this->shippingAddressRepository->findById($addressId);
+
+        if (!$shippingAddress instanceof ShippingAddress){
             throw new ShippingAddressNotFoundException();
         }
 

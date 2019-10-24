@@ -38,6 +38,7 @@ class ShippingAddressDTO
         $dto->city = $array['city'];
         $dto->zipcode = $array['zipcode'];
         $dto->street = $array['street'];
+        $dto->clientId = (int) $array['client_id'];
 
         return $dto;
     }

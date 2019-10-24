@@ -7,8 +7,8 @@ use Throwable;
 
 class ShippingAddressNotDeletedException extends \Exception
 {
-    public function __construct($message = "", $code = 0, Throwable $previous = null)
+    public function __construct($message = null, $code = 0, Throwable $previous = null)
     {
-        parent::__construct('Shipping Address Not Deleted', $code, $previous);
+        parent::__construct($message ?? 'Shipping Address Not Deleted', $code, $previous);
     }
 }

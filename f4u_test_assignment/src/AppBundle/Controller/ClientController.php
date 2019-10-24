@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ClientController
 {
     /**
-     * @Route("/api/client/{clientId}/get", name="get_client", requirements={"clientId"="\d+"})
+     * @Route("/api/client/{clientId}", name="get_client", requirements={"clientId"="\d+"})
      * @throws \Exception
      */
     public function get(
