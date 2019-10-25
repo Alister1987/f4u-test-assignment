@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Ddd\Domain\ShippingAddress\Entity;
 
 use AppBundle\DTO\ShippingAddressDTO;
 use Doctrine\ORM\Mapping as ORM;

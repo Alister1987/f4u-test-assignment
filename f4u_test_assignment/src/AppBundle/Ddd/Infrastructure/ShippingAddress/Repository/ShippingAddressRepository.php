@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AppBundle\Repository;
+namespace AppBundle\Ddd\Infrastructure\ShippingAddress\Repository;
 
 use AppBundle\DTO\ShippingAddressDTO;
 use AppBundle\Entity\ShippingAddress;

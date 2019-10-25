@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AppBundle\DTO;
+namespace AppBundle\Ddd\Domain\ShippingAddress\DTO;
 
 class ShippingAddressDTO
 {

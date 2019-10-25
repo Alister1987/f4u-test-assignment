@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AppBundle\Exception;
+namespace AppBundle\Ddd\Domain\ShippingAddress\Exception;
 
 use Throwable;
 

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace AppBundle\Service;
+namespace AppBundle\Ddd\Domain\ShippingAddress;
 
 use AppBundle\DTO\ShippingAddressDTO;
 use AppBundle\Exception\ShippingAddressNotDeletedException;
@@ -12,7 +12,7 @@ use AppBundle\Exception\ShippingAddressNotCreatedException;
 use AppBundle\Exception\ShippingAddressNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ShippingAddressService
+class ShippingAddressManager
 {
     /**
      * @var ShippingAddressRepository

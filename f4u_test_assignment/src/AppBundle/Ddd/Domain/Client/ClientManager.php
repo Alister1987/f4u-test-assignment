@@ -1,15 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace AppBundle\Service;
+namespace AppBundle\Ddd\Domain\Client;
 
-use AppBundle\Exception\ClientNotFoundException;
-use AppBundle\Repository\ClientRepository;
-use AppBundle\Repository\ShippingAddressRepository;
+use AppBundle\Ddd\Infrastructure\Client\Repository\ClientRepository;
+//use AppBundle\Exception\ClientNotFoundException;
+//use AppBundle\Repository\ClientRepository;
+//use AppBundle\Repository\ShippingAddressRepository;
 
-class ClientService
+class ClientManager
 {
-    private $shippingAddressRepository;
+    private $clientRepository;
 
     public function __construct(
         ClientRepository $clientRepository

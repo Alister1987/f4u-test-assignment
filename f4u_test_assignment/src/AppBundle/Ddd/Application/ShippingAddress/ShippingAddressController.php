@@ -1,17 +1,17 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Ddd\Application\ShippingAddress;
 
 //use App\Service\ShippingAddressService;
-use AppBundle\Entity\ShippingAddress;
-use AppBundle\Exception\ShippingAddressNotDeletedException;
-use AppBundle\Exception\ShippingAddressNotFoundException;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use AppBundle\DTO\ShippingAddressDTO;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Service\ShippingAddressService;
-use Symfony\Component\HttpFoundation\Response;
+//use AppBundle\Entity\ShippingAddress;
+//use AppBundle\Exception\ShippingAddressNotDeletedException;
+//use AppBundle\Exception\ShippingAddressNotFoundException;
+//use Symfony\Component\HttpFoundation\JsonResponse;
+//use Symfony\Component\HttpFoundation\Request;
+//use AppBundle\DTO\ShippingAddressDTO;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+//use AppBundle\Service\ShippingAddressManager;
+//use Symfony\Component\HttpFoundation\Response;
 
 class ShippingAddressController
 {
@@ -19,7 +19,7 @@ class ShippingAddressController
      * @Route("/api/shipping_address/{addressId}", methods={"get"}, name="create_shipping_address", requirements={"addressId"="\d+"})
      * @throws \Exception
      */
-    public function getOne($addressId, ShippingAddressService $shippingAddressService): JsonResponse
+    public function getOne($addressId, ShippingAddressManager $shippingAddressService): JsonResponse
     {
         try {
             $shippingAddress = $shippingAddressService->getAddress($addressId);
@@ -37,7 +37,7 @@ class ShippingAddressController
     public function update(
         Request $request,
         int $addressId,
-        ShippingAddressService $shippingAddressService
+        ShippingAddressManager $shippingAddressService
     ): JsonResponse {
         $dto = ShippingAddressDTO::fromArray($request->request->all());
 
@@ -56,7 +56,7 @@ class ShippingAddressController
      */
     public function delete(
         int $addressId,
-        ShippingAddressService $shippingAddressService
+        ShippingAddressManager $shippingAddressService
     ): JsonResponse {
         try {
             $shippingAddressService->delete($addressId);
@@ -75,7 +75,7 @@ class ShippingAddressController
      */
     public function getAll(
         int $clientId,
-        ShippingAddressService $shippingAddressService
+        ShippingAddressManager $shippingAddressService
     ): JsonResponse {
         $response = $shippingAddressService->getAll($clientId);
 
@@ -88,7 +88,7 @@ class ShippingAddressController
      */
     public function create(
         Request $request,
-        ShippingAddressService $shippingAddressService
+        ShippingAddressManager $shippingAddressService
     ): JsonResponse {
         $dto = ShippingAddressDTO::fromArray($request->request->all());
 
