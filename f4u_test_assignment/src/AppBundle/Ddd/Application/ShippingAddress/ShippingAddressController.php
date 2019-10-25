@@ -2,16 +2,18 @@
 
 namespace AppBundle\Ddd\Application\ShippingAddress;
 
-//use App\Service\ShippingAddressService;
-//use AppBundle\Entity\ShippingAddress;
-//use AppBundle\Exception\ShippingAddressNotDeletedException;
-//use AppBundle\Exception\ShippingAddressNotFoundException;
-//use Symfony\Component\HttpFoundation\JsonResponse;
-//use Symfony\Component\HttpFoundation\Request;
-//use AppBundle\DTO\ShippingAddressDTO;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-//use AppBundle\Service\ShippingAddressManager;
-//use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Ddd\Domain\ShippingAddress\Transformer;
+use AppBundle\Tests\Service\ShippingAddressServiceTest;
+use AppBundle\Ddd\Domain\ShippingAddress\Entity\ShippingAddress;
+use AppBundle\Ddd\Domain\ShippingAddress\Exception\ShippingAddressNotDeletedException;
+use AppBundle\Ddd\Domain\ShippingAddress\Exception\ShippingAddressNotFoundException;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Ddd\Domain\ShippingAddress\DTO\ShippingAddressDTO;
+use AppBundle\Ddd\Domain\ShippingAddress\ShippingAddressManager;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class ShippingAddressController
 {
@@ -27,7 +29,7 @@ class ShippingAddressController
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress));
+        return new JsonResponse(Transformer::prepareEntity($shippingAddress));
     }
 
     /**
@@ -47,7 +49,7 @@ class ShippingAddressController
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress), Response::HTTP_NO_CONTENT);
+        return new JsonResponse(Transformer::prepareEntity($shippingAddress), Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -94,7 +96,7 @@ class ShippingAddressController
 
         $shippingAddress = $shippingAddressService->create($dto);
 
-        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress), Response::HTTP_CREATED);
+        return new JsonResponse(Transformer::prepareEntity($shippingAddress), Response::HTTP_CREATED);
     }
 
 }

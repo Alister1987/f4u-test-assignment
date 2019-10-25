@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace AppBundle\Ddd\Domain\Client;
 
 use AppBundle\Ddd\Infrastructure\Client\Repository\ClientRepository;
-//use AppBundle\Exception\ClientNotFoundException;
-//use AppBundle\Repository\ClientRepository;
-//use AppBundle\Repository\ShippingAddressRepository;
+use AppBundle\Ddd\Domain\Client\Exception\ClientNotFoundException;
+use AppBundle\Ddd\Infrastructure\Client\Repository\ClientRepository;
+use AppBundle\Ddd\Infrastructure\ShippingAddress\Repository\ShippingAddressRepository;
 
 class ClientManager
 {
