@@ -22,22 +22,26 @@ services:
         # but if a service is unused, it's removed anyway
         exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
 
-    AppBundle\Repository\ClientRepository:
-        class: Doctrine\ORM\EntityRepository
+    AppBundle\Ddd\Infrastructure\Client\Repository\ClientRepository:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - AppBundle\Entity\Client
+            - 'AppBundle\Ddd\Domain\Client\Entity\Client'
 
-    AppBundle\Repository\ShippingAddressRepository:
-        class: Doctrine\ORM\EntityRepository
-        factory: ['@doctrine.orm.default_entity_manager', getRepository]
-        arguments:
-            - AppBundle\Entity\ShippingAddress
+#
+#    AppBundle\Repository\ShippingAddressRepository:
+#        class: Doctrine\ORM\EntityRepository
+#        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+#        arguments:
+#            - AppBundle\Entity\ShippingAddress
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
-    AppBundle\Controller\:
-        resource: '../../src/AppBundle/Controller'
+#    AppBundle\Controller\:
+#        resource: '../../src/AppBundle/Controller'
+#        public: true
+#        tags: ['controller.service_arguments']
+    AppBundle\Ddd\Application\Client\:
+        resource: '../../src/AppBundle/Ddd/Application/Client'
         public: true
         tags: ['controller.service_arguments']
 

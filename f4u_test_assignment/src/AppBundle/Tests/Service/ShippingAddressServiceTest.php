@@ -7,7 +7,7 @@ use AppBundle\Entity\Client;
 use AppBundle\Entity\ShippingAddress;
 use AppBundle\Exception\ShippingAddressNotFoundException;
 use AppBundle\Repository\ShippingAddressRepository;
-use AppBundle\Service\ShippingAddressService;
+use AppBundle\Service\ShippingAddressManager;
 use AppBundle\Tests\AbstractTest;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -15,8 +15,8 @@ class ShippingAddressServiceTest extends AbstractTest
 {
     public function testCreate()
     {
-        /** @var ShippingAddressService $shippingAddressService */
-        $shippingAddressService = $this->container->get(ShippingAddressService::class);
+        /** @var ShippingAddressManager $shippingAddressService */
+        $shippingAddressService = $this->container->get(ShippingAddressManager::class);
         $entityManager = $this->container->get(EntityManagerInterface::class);
         $shippingAddressRepository = $this->container->get(ShippingAddressRepository::class);
 
@@ -53,8 +53,8 @@ class ShippingAddressServiceTest extends AbstractTest
 
     public function testUpdate()
     {
-        /** @var ShippingAddressService $shippingAddressService */
-        $shippingAddressService = $this->container->get(ShippingAddressService::class);
+        /** @var ShippingAddressManager $shippingAddressService */
+        $shippingAddressService = $this->container->get(ShippingAddressManager::class);
         $entityManager = $this->container->get(EntityManagerInterface::class);
         $shippingAddressRepository = $this->container->get(ShippingAddressRepository::class);
 
@@ -92,8 +92,8 @@ class ShippingAddressServiceTest extends AbstractTest
 
     public function testDelete()
     {
-        /** @var ShippingAddressService $shippingAddressService */
-        $shippingAddressService = $this->container->get(ShippingAddressService::class);
+        /** @var ShippingAddressManager $shippingAddressService */
+        $shippingAddressService = $this->container->get(ShippingAddressManager::class);
         $entityManager = $this->container->get(EntityManagerInterface::class);
         $shippingAddressRepository = $this->container->get(ShippingAddressRepository::class);
 
@@ -124,8 +124,8 @@ class ShippingAddressServiceTest extends AbstractTest
 
     public function testGet()
     {
-        /** @var ShippingAddressService $shippingAddressService */
-        $shippingAddressService = $this->container->get(ShippingAddressService::class);
+        /** @var ShippingAddressManager $shippingAddressService */
+        $shippingAddressService = $this->container->get(ShippingAddressManager::class);
         $entityManager = $this->container->get(EntityManagerInterface::class);
         $shippingAddressRepository = $this->container->get(ShippingAddressRepository::class);
 
