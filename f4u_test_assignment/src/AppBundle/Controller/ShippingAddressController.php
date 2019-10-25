@@ -27,24 +27,7 @@ class ShippingAddressController
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse($this->prepareEntity($shippingAddress));
-    }
-
-    /**
-     * @param ShippingAddress $shippingAddress
-     * @return array
-     */
-    private function prepareEntity(ShippingAddress $shippingAddress): array
-    {
-        return [
-            'id' => $shippingAddress->getId(),
-            'clinet_id' => $shippingAddress->getClientId(),
-            'country' => $shippingAddress->getCountry(),
-            'city' => $shippingAddress->getCity(),
-            'street' => $shippingAddress->getStreet(),
-            'zip' => $shippingAddress->getZipcode(),
-            'isDefault' => $shippingAddress->getIsDefault(),
-        ];
+        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress));
     }
 
     /**
@@ -64,7 +47,7 @@ class ShippingAddressController
             return new JsonResponse(['error' => $exception->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse($this->prepareEntity($shippingAddress), Response::HTTP_NO_CONTENT);
+        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress), Response::HTTP_NO_CONTENT);
     }
 
     /**
@@ -111,7 +94,7 @@ class ShippingAddressController
 
         $shippingAddress = $shippingAddressService->create($dto);
 
-        return new JsonResponse($this->prepareEntity($shippingAddress), Response::HTTP_CREATED);
+        return new JsonResponse($shippingAddressService->prepareEntity($shippingAddress), Response::HTTP_CREATED);
     }
 
 }
