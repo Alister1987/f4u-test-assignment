@@ -74,10 +74,10 @@ class ShippingAddressService
     {
         $shippingAddress = $this->getAddress($addressId);
 
-        $shippingAddress->setCountry($shippingAddressDto->getCountry());
-        $shippingAddress->setCity($shippingAddressDto->getCity());
-        $shippingAddress->setZipcode($shippingAddressDto->getZipcode());
-        $shippingAddress->setStreet($shippingAddressDto->getStreet());
+        $shippingAddress->setCountry($dto->country);
+        $shippingAddress->setCity($dto->city);
+        $shippingAddress->setZipcode($dto->zipcode);
+        $shippingAddress->setStreet($dto->street);
 
         $this->getEntityManager()->persist($shippingAddress);
         $this->getEntityManager()->flush();
